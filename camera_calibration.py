@@ -31,12 +31,12 @@ for fname in images:
 
 img = cv2.imread("camera_cal/calibration1.jpg")
 # Get the image shape/size
-img_size = (img.shape[0], img.shape[1])
+img_size = (img.shape[1], img.shape[0])
 print('image size:', img_size)
 gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 # Do camera calibration given object points and image points
 ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, img_size, None, None)
-# ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, img.shape, None, None)
+# ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
 dst = cv2.undistort(img, mtx, dist, None, mtx)
 cv2.imwrite('output_images/undistorted_image.jpg',dst)
 
